@@ -1,0 +1,11 @@
+# Build output
+target/
+
+# IDE files
+.idea/
+*.iml
+.DS_Store
+nbactions.xml
+
+# Never upload your database password!
+src/main/resources/application.properties
