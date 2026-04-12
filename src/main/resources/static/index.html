@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobTrackr</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginPage" class="page">
+    <div class="card">
+        <h1>JobTrackr</h1>
+        <p class="subtitle">Track your job applications</p>
+        <div class="form-group">
+            <input type="text" id="loginUsername" placeholder="Username" />
+        </div>
+        <div class="form-group">
+            <input type="password" id="loginPassword" placeholder="Password" />
+        </div>
+        <button onclick="login()" class="btn btn-primary">Login</button>
+        <p class="link">Don't have an account? <a onclick="showPage('registerPage')">Register</a></p>
+        <p id="loginError" class="error"></p>
+    </div>
+</div>
+
+<div id="registerPage" class="page hidden">
+    <div class="card">
+        <h1>Create Account</h1>
+        <p class="subtitle">Join JobTrackr today</p>
+        <div class="form-group">
+            <input type="text" id="regUsername" placeholder="Username" />
+        </div>
+        <div class="form-group">
+            <input type="email" id="regEmail" placeholder="Email" />
+        </div>
+        <div class="form-group">
+            <input type="password" id="regPassword" placeholder="Password" />
+        </div>
+        <button onclick="register()" class="btn btn-primary">Register</button>
+        <p class="link">Already have an account? <a onclick="showPage('loginPage')">Login</a></p>
+        <p id="registerError" class="error"></p>
+        <p id="registerSuccess" class="success"></p>
+    </div>
+</div>
+
+<div id="dashboardPage" class="page hidden">
+    <nav>
+        <h2>JobTrackr</h2>
+        <div>
+            <span id="welcomeUser"></span>
+            <button onclick="logout()" class="btn btn-logout">Logout</button>
+        </div>
+    </nav>
+    <div class="dashboard">
+        <div class="stats-row">
+            <div class="stat-card">
+                <h3 id="totalCount">0</h3>
+                <p>Total Applied</p>
+            </div>
+            <div class="stat-card interview">
+                <h3 id="interviewCount">0</h3>
+                <p>Interviews</p>
+            </div>
+            <div class="stat-card offer">
+                <h3 id="offerCount">0</h3>
+                <p>Offers</p>
+            </div>
+            <div class="stat-card rejected">
+                <h3 id="rejectedCount">0</h3>
+                <p>Rejected</p>
+            </div>
+        </div>
+        <div class="section-header">
+            <h3>My Applications</h3>
+            <button onclick="showAddForm()" class="btn btn-primary">+ Add Job</button>
+        </div>
+        <div id="jobForm" class="job-form hidden">
+            <h4 id="formTitle">Add Job Application</h4>
+            <div class="form-row">
+                <input type="text" id="company" placeholder="Company *" />
+                <input type="text" id="role" placeholder="Role *" />
+            </div>
+            <div class="form-row">
+                <select id="status">
+                    <option value="Applied">Applied</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Offer">Offer</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+                <input type="date" id="appliedDate" />
+            </div>
+            <textarea id="notes" placeholder="Notes (optional)"></textarea>
+            <div class="form-buttons">
+                <button onclick="saveJob()" class="btn btn-primary" id="saveBtn">Save</button>
+                <button onclick="hideForm()" class="btn btn-cancel">Cancel</button>
+            </div>
+        </div>
+        <div id="jobsList"></div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

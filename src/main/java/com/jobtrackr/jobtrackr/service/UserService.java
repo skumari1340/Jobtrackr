@@ -16,27 +16,25 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User register(RegisterRequest request) {
-        // Check if username already exists
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new RuntimeException("Username already taken!");
         }
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already registered! Please login.");
+        }
 
-        // Create new user
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-        // Encrypt password before saving — never save plain text!
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return userRepository.save(user);
     }
 
     public User login(String username, String password) {
-        // Find user by username
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found!"));
 
-        // Check if password matches
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Wrong password!");
         }
