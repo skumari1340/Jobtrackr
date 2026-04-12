@@ -19,8 +19,13 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+                // Frontend files
                 .requestMatchers("/", "/index.html", "/style.css", "/app.js").permitAll()
+                // Auth endpoints
                 .requestMatchers("/api/auth/register", "/api/auth/login", "/hello").permitAll()
+                // Swagger UI
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                // Everything else needs token
                 .anyRequest().authenticated()
             )
             .sessionManagement(sess -> sess
